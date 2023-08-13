@@ -17,8 +17,8 @@ public protocol ViewConfiguration: Equatable {
 // MARK: - methods by-default
 extension ViewConfiguration {
 
-	/// Make field based on this configuration
-	func makeField() -> NSView {
+	/// Make view based on this configuration
+	func makeView() -> NSView {
 		return View(self)
 	}
 }
