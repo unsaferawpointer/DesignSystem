@@ -18,7 +18,7 @@ public protocol ViewConfiguration: Equatable {
 extension ViewConfiguration {
 
 	/// Make view based on this configuration
-	func makeView() -> NSView {
+	public func makeView() -> View {
 		return View(self)
 	}
 }
