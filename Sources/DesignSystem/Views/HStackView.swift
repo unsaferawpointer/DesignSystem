@@ -10,7 +10,7 @@ import Cocoa
 public class HStackView: NSView {
 
 	private(set) var items: [any UniqueConfiguration] = []
-	private(set) var views: [UniqueView] = []
+	private(set) var views: [NSView] = []
 
 	// MARK: - UI-Properties
 
@@ -68,7 +68,7 @@ extension HStackView {
 
 		self.items = new
 
-		var moved: [AnyHashable: UniqueView] = [:]
+		var moved: [AnyHashable: NSView] = [:]
 
 		NSAnimationContext.runAnimationGroup({ context in
 			context.duration = 0.3
@@ -86,7 +86,9 @@ extension HStackView {
 						if let oldOffset {
 							return moved[id]!
 						} else {
-							return items[newOffset].makeView()
+							let view = items[newOffset].makeView()
+							views.insert(view, at: newOffset)
+							return view
 						}
 					}()
 					view.frame.size.height = container.frame.height
