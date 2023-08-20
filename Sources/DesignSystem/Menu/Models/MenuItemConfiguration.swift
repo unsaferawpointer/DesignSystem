@@ -11,16 +11,16 @@ import Foundation
 public struct MenuItemConfiguration {
 
 	/// Menu title
-	let title: String
+	public let title: String
 
 	/// Menu icon
-	let iconName: String?
+	public let iconName: String?
 
 	/// Key equivalent
-	let keyEquivalent: String
+	public let keyEquivalent: String
 
 	/// Action
-	let action: (() -> Void)?
+	public let action: (() -> Void)?
 
 	// MARK: - Initialization
 
