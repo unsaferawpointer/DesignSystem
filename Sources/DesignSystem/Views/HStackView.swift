@@ -72,25 +72,23 @@ extension HStackView {
 
 		NSAnimationContext.runAnimationGroup({ context in
 			context.duration = 0.3
-			print("is main \(Thread.isMainThread)")
 			for change in diff {
 				switch change {
 				case let .remove(oldOffset, id, newOffset):
-					let view = views[oldOffset]
-					if let newOffset {
+					let view = views.remove(at: oldOffset)
+					if newOffset != nil {
 						moved[id] = view
 					}
 					self.container.animator().removeView(view)
-				case let .insert(newOffset, id, oldOffset):
+				case let .insert(newOffset, id, _):
 					let view: NSView = {
-						if let oldOffset {
-							return moved[id]!
+						if let movedView = moved[id] {
+							return movedView
 						} else {
-							let view = items[newOffset].makeView()
-							views.insert(view, at: newOffset)
-							return view
+							return items[newOffset].makeView()
 						}
 					}()
+					views.insert(view, at: newOffset)
 					view.frame.size.height = container.frame.height
 					view.frame.origin.x = getOffset(for: newOffset)
 					view.autoresizingMask = [.height]
@@ -103,7 +101,6 @@ extension HStackView {
 	}
 
 	func getOffset(for index: Int) -> CGFloat {
-		print("newOffset = \(index)")
 		let numberOfViews = container.arrangedSubviews.count
 		if index == 0 {
 			return 0
