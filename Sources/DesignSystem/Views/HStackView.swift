@@ -66,9 +66,14 @@ extension HStackView {
 		let old = items.map(\.id)
 		let diff = new.map(\.id).difference(from: old).inferringMoves()
 
+		for (index, item) in items.enumerated() {
+			configure(item: item, index: index)
+		}
+
 		self.items = new
 
 		var moved: [AnyHashable: NSView] = [:]
+
 
 		NSAnimationContext.runAnimationGroup({ context in
 			context.duration = 0.3
@@ -98,6 +103,13 @@ extension HStackView {
 		}, completionHandler: {
 
 		})
+	}
+
+	func configure<T: ViewConfiguration>(item: T, index: Int) {
+		guard let view = views[index] as? T.View else {
+			return
+		}
+		view.configure(item)
 	}
 
 	func getOffset(for index: Int) -> CGFloat {
