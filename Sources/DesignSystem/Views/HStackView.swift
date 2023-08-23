@@ -57,6 +57,18 @@ private extension HStackView {
 
 extension HStackView {
 
+	public var spacing: CGFloat {
+		get {
+			container.spacing
+		}
+		set {
+			container.spacing = newValue
+		}
+	}
+}
+
+extension HStackView {
+
 	public func reloardItems(_ new: [any UniqueConfiguration]) {
 		performAnimation(new)
 	}
